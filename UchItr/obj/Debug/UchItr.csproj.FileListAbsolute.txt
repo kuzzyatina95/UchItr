@@ -83,6 +83,8 @@ C:\Users\kuzzy\OneDrive\Документы\Visual Studio 2015\Projects\UchItr\Uc
 C:\Users\kuzzy\OneDrive\Документы\Visual Studio 2015\Projects\UchItr\UchItr\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\kuzzy\OneDrive\Документы\Visual Studio 2015\Projects\UchItr\UchItr\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\kuzzy\OneDrive\Документы\Visual Studio 2015\Projects\UchItr\UchItr\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\Users\kuzzy\OneDrive\Документы\Visual Studio 2015\Projects\UchItr\UchItr\obj\Debug\UchItr.csprojResolveAssemblyReference.cache
 C:\Users\kuzzy\OneDrive\Документы\Visual Studio 2015\Projects\UchItr\UchItr\obj\Debug\UchItr.dll
 C:\Users\kuzzy\OneDrive\Документы\Visual Studio 2015\Projects\UchItr\UchItr\obj\Debug\UchItr.pdb
+C:\Users\kuzzy\OneDrive\Документы\Visual Studio 2015\Projects\UchItr\UchItr\obj\Debug\UchItr.Migrations.InitialCreate.resources
+C:\Users\kuzzy\OneDrive\Документы\Visual Studio 2015\Projects\UchItr\UchItr\obj\Debug\UchItr.csproj.GenerateResource.Cache
+C:\Users\kuzzy\OneDrive\Документы\Visual Studio 2015\Projects\UchItr\UchItr\obj\Debug\UchItr.Migrations.IdentityAdd.resources

@@ -12,6 +12,14 @@ namespace UchItr.Models
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
+        [Display(Name = "Name")]
+        public string Name { get; set; }
+        [Display(Name = "Surname")]
+        public string Surname { get; set; }
+        [Display(Name = "Short description")]
+        public string ShortDescription { get; set; }
+        [Display(Name = "Hobby")]
+        public string Hobby { get; set; }
     }
 
     public class ManageLoginsViewModel
@@ -23,6 +31,25 @@ namespace UchItr.Models
     public class FactorViewModel
     {
         public string Purpose { get; set; }
+    }
+
+    public class AddDescriptionViewModel
+    {
+        [Required]
+        [Display(Name = "Name")]
+        public string Name { get; set; }
+
+        [Required]
+        [Display(Name = "Surname")]
+        public string Surname { get; set; }
+
+        [Required]
+        [Display(Name = "Short description")]
+        public string ShortDescription { get; set; }
+
+        [Required]
+        [Display(Name = "Hobby")]
+        public string Hobby { get; set; }
     }
 
     public class SetPasswordViewModel

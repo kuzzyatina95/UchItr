@@ -64,13 +64,18 @@ namespace UchItr.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+            ApplicationUser user = await UserManager.FindByEmailAsync(User.Identity.Name);
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                Name = user.Name,
+                Hobby = user.Hobby,
+                ShortDescription = user.ShortDescription,
+                Surname = user.Surname
             };
             return View(model);
         }
@@ -97,6 +102,54 @@ namespace UchItr.Controllers
                 message = ManageMessageId.Error;
             }
             return RedirectToAction("ManageLogins", new { Message = message });
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> AddDescription()
+        {
+            ApplicationUser user = await UserManager.FindByEmailAsync(User.Identity.Name);
+            if (user != null)
+            {
+                AddDescriptionViewModel model = new AddDescriptionViewModel
+                {
+                    Name = user.Name,
+                    Surname = user.Surname,
+                    Hobby = user.Hobby,
+                    ShortDescription = user.ShortDescription
+                };
+                return View(model);
+            }
+            return RedirectToAction("Login", "Account");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddDescription(AddDescriptionViewModel model)
+        {
+
+            ApplicationUser user = await UserManager.FindByEmailAsync(User.Identity.Name);
+            if (user != null)
+            {
+                user.Name = model.Name;
+                user.Surname = model.Surname;
+                user.Hobby = model.Hobby;
+                user.ShortDescription = model.ShortDescription;
+                IdentityResult result = await UserManager.UpdateAsync(user);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Manage");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Что-то пошло не так");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Пользователь не найден");
+            }
+
+            return View(model);
         }
 
         //
