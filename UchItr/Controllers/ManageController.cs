@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using UchItr.Models;
+using System.Data.Entity;
 
 namespace UchItr.Controllers
 {
@@ -15,6 +16,7 @@ namespace UchItr.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public ManageController()
         {
@@ -120,6 +122,16 @@ namespace UchItr.Controllers
                 return View(model);
             }
             return RedirectToAction("Login", "Account");
+        }
+
+        public async Task<ActionResult> MyPosts()
+        {
+            var posts = db.Posts.Include(p => p.Category).Include(p => p.User);
+            var currentUser = User.Identity.GetUserId();
+            var currentUserPost = posts.Where(p => p.UserID == currentUser);
+            posts = posts.Where(p => p.UserID == User.Identity.GetUserId());
+            //posts = posts.Where(p => p.UserID == User.Identity.GetUserId());
+            return View(await posts.ToListAsync());
         }
 
         [HttpPost]
