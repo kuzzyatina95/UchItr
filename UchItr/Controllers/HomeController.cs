@@ -70,6 +70,23 @@ namespace UchItr.Controllers
             return View(post);
         }
 
+        [HttpGet]
+        public async Task<ActionResult> DetailsPost(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Post post = await db.Posts.FindAsync(id);
+            post.User= await db.Users.FirstAsync(d => d.Id == post.UserID);
+            post.Category= await db.Categorys.FirstAsync(d => d.Id == post.CategoryID);
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+            //ViewBag.CategoryID = new SelectList(db.Categorys, "Id", "Name", post.CategoryID);
+            return View(post);
+        }
 
     }
 }

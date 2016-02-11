@@ -453,6 +453,7 @@
     <Content Include="Views\Manage\EditPost.cshtml" />
     <Content Include="Views\Manage\CreatePost.cshtml" />
     <Content Include="Views\Manage\DeletePost.cshtml" />
+    <Content Include="Views\Home\DetailsPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

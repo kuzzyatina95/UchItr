@@ -18,6 +18,7 @@
             <p class="lead">
                 by <a href="#">@Html.DisplayFor(modelItem => post.User.Name) @Html.DisplayFor(modelItem => post.User.Surname)</a>
             </p>
+           
             <hr>
             <p><span class="glyphicon glyphicon-time"></span> Posted on August @Html.DisplayFor(modelItem=>post.PostedOn)</p>
             <hr>
@@ -28,7 +29,7 @@
             <hr>
             <h4>@Html.DisplayFor(modelItem => post.ShortDescription)</h4>
             @Html.Raw(post.Body)
-            @Html.ActionLink("Подробнее...", "Details", new { id = post.Id })
+            @Html.ActionLink("Подробнее...", "DetailsPost", new { id = post.Id })
             <hr />
         </div>  
     </div>
