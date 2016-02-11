@@ -38,7 +38,7 @@ namespace UchItr.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime PostedOn { get; set; }
-
+        public ICollection<Comment> Comments { get; set; }
     }
 
     public class AddPostViewModel

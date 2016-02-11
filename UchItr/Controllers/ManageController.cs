@@ -126,11 +126,12 @@ namespace UchItr.Controllers
 
         public async Task<ActionResult> MyPosts()
         {
-            var posts = db.Posts.Include(p => p.Category).Include(p => p.User);
-            var currentUser = User.Identity.GetUserId();
-            var currentUserPost = posts.Where(p => p.UserID == currentUser);
-            posts = posts.Where(p => p.UserID == User.Identity.GetUserId());
-            //posts = posts.Where(p => p.UserID == User.Identity.GetUserId());
+            //var posts = db.Posts.Include(p => p.Category).Include(p => p.User);
+            var currentUserID = User.Identity.GetUserId();
+            var posts = from c in db.Posts.Include(p => p.Category).Include(p => p.User)
+                         where c.UserID == currentUserID
+                         select c;
+
             return View(await posts.ToListAsync());
         }
 

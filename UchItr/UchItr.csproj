@@ -223,6 +223,10 @@
     <Compile Include="Migrations\201602101546564_AddPostViewModels.Designer.cs">
       <DependentUpon>201602101546564_AddPostViewModels.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602110942028_AddCommentCollection.cs" />
+    <Compile Include="Migrations\201602110942028_AddCommentCollection.Designer.cs">
+      <DependentUpon>201602110942028_AddCommentCollection.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -683,6 +687,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602101546564_AddPostViewModels.resx">
       <DependentUpon>201602101546564_AddPostViewModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602110942028_AddCommentCollection.resx">
+      <DependentUpon>201602110942028_AddCommentCollection.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -89,3 +89,4 @@ C:\Users\kuzzy\OneDrive\Документы\Visual Studio 2015\Projects\UchItr\Uc
 C:\Users\kuzzy\OneDrive\Документы\Visual Studio 2015\Projects\UchItr\UchItr\obj\Debug\UchItr.csproj.GenerateResource.Cache
 C:\Users\kuzzy\OneDrive\Документы\Visual Studio 2015\Projects\UchItr\UchItr\obj\Debug\UchItr.Migrations.IdentityAdd.resources
 C:\Users\kuzzy\OneDrive\Документы\Visual Studio 2015\Projects\UchItr\UchItr\obj\Debug\UchItr.Migrations.AddPostViewModels.resources
+C:\Users\kuzzy\OneDrive\Документы\Visual Studio 2015\Projects\UchItr\UchItr\obj\Debug\UchItr.Migrations.AddCommentCollection.resources

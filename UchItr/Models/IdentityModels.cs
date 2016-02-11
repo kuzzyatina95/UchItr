@@ -20,8 +20,8 @@ namespace UchItr.Models
         [Display(Name = "Hobby")]
         public string Hobby { get; set; }
 
-        public List<Post> Posts { get; set; }
-        public List<Comment> Comments { get; set; }
+        public ICollection<Post> Posts { get; set; }
+        public ICollection<Comment> Comments { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
