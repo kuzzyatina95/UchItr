@@ -26,15 +26,18 @@ namespace UchItr.Models
         [Display(Name = "Title")]
         public string Title { get; set; }
         [Required]
-        [Display(Name = "ShortDescription")]
+        [Display(Name = "Short description")]
         public string ShortDescription { get; set; }
         [Required]
         [AllowHtml]
         [Display(Name = "Body")]
         public string Body { get; set; }
         public bool Published { get; set; }
+        [Display(Name = "Like")]
         [DefaultValue(0)]
         public int NetLikeCount { get; set; }
+
+        [Display(Name = "Date posted")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime PostedOn { get; set; }
@@ -68,6 +71,7 @@ namespace UchItr.Models
         [Display(Name = "Опубликовать?")]
         public bool Published { get; set; }
 
+        [Display(Name = "Date posted")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime PostedOn { get; set; }
@@ -91,7 +95,7 @@ namespace UchItr.Models
         [AllowHtml]
         [Display(Name = "Body")]
         public string Body { get; set; }
-
+        [Display(Name = "Опубликовать?")]
         public bool Published { get; set; }
     }
 

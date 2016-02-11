@@ -167,8 +167,33 @@ namespace UchItr.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("MyPosts");
             }
-
             return View(post);
+        }
+
+        // GET: Posts1/Delete/5
+        public async Task<ActionResult> DeletePost(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Post post = await db.Posts.FindAsync(id);
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+            return View(post);
+        }
+
+        // POST: Posts1/Delete/5
+        [HttpPost, ActionName("DeletePost")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeletePost(int id)
+        {
+            Post post = await db.Posts.FindAsync(id);
+            db.Posts.Remove(post);
+            await db.SaveChangesAsync();
+            return RedirectToAction("MyPosts");
         }
 
         [Authorize]

@@ -40,7 +40,6 @@ namespace UchItr.Controllers
         public ActionResult CreatePost()
         {
             ViewBag.CategoryID = new SelectList(db.Categorys, "Id", "Name");
-            //ViewBag.UserID = new SelectList(db.Users, "Id", "Email");
             ViewBag.UserID = User.Identity.GetUserId();
             return View();
         }
@@ -48,13 +47,19 @@ namespace UchItr.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreatePost([Bind(Include = "Id,UserID,CategoryID,Title,ShortDescription,Body,Published,NetLikeCount,PostedOn")] Post post)
+        public async Task<ActionResult> CreatePost(AddPostViewModel newPost)
         {
-            EditPostViewModel model = new EditPostViewModel();
-            
+            Post post = new Post();
             if (ModelState.IsValid)
             {
                 post.UserID = User.Identity.GetUserId();
+                post.CategoryID = newPost.CategoryID;
+                post.Title = newPost.Title;
+                post.ShortDescription = newPost.ShortDescription;
+                post.Body = newPost.Body;
+                post.Published = newPost.Published;
+                post.PostedOn = newPost.PostedOn;
+
                 db.Posts.Add(post);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");

@@ -58,9 +58,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Body, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Body, new { @id = "editor2" })
+                @Html.TextAreaFor(model => model.Body, new { @id = "editor" })
                 <script>
-                    CKEDITOR.replace('editor2');
+                    CKEDITOR.replace('editor');
                 </script>
             </div>
         </div>
