@@ -53,6 +53,35 @@ namespace UchItr.Models
         public int CategoryID { get; set; }
         public Category Category { get; set; }
 
+
+        [Required]
+        [Display(Name = "Title")]
+        public string Title { get; set; }
+        [Required]
+        [Display(Name = "ShortDescription")]
+        public string ShortDescription { get; set; }
+        [Required]
+        [AllowHtml]
+        [Display(Name = "Body")]
+        public string Body { get; set; }
+
+        [Display(Name = "Опубликовать?")]
+        public bool Published { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime PostedOn { get; set; }
+
+    }
+
+    public class EditPostViewModel
+    {
+        public int Id { get; set; }
+
+        [Display(Name = "Category")]
+        public int CategoryID { get; set; }
+        public Category Category { get; set; }
+
         [Display(Name = "Title")]
         public string Title { get; set; }
 
@@ -63,11 +92,10 @@ namespace UchItr.Models
         [Display(Name = "Body")]
         public string Body { get; set; }
 
-        public int NetLikeCount { get; set; }
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime PostedOn { get; set; }
+        public bool Published { get; set; }
     }
+
+
 
     public class Category
     {

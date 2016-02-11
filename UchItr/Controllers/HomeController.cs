@@ -50,6 +50,8 @@ namespace UchItr.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreatePost([Bind(Include = "Id,UserID,CategoryID,Title,ShortDescription,Body,Published,NetLikeCount,PostedOn")] Post post)
         {
+            EditPostViewModel model = new EditPostViewModel();
+            
             if (ModelState.IsValid)
             {
                 post.UserID = User.Identity.GetUserId();

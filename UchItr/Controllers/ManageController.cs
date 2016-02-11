@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using UchItr.Models;
 using System.Data.Entity;
+using System.Net;
 
 namespace UchItr.Controllers
 {
@@ -134,6 +135,77 @@ namespace UchItr.Controllers
 
             return View(await posts.ToListAsync());
         }
+
+        public async Task<ActionResult> EditPost(int? id)
+        {
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Post post = await db.Posts.FindAsync(id);
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.CategoryID = new SelectList(db.Categorys, "Id", "Name", post.CategoryID);
+            return View(post);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditPost(EditPostViewModel postViewModel)
+        {
+            Post post = db.Posts.Find(postViewModel.Id);
+            if (ModelState.IsValid)
+            {
+                post.CategoryID = postViewModel.CategoryID;
+                post.ShortDescription = postViewModel.ShortDescription;
+                post.Body = postViewModel.Body;
+                post.Published = postViewModel.Published;
+                db.Entry(post).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("MyPosts");
+            }
+
+            return View(post);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult CreatePost()
+        {
+            ViewBag.CategoryID = new SelectList(db.Categorys, "Id", "Name");
+            ViewBag.UserID = User.Identity.GetUserId();
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreatePost(AddPostViewModel newPost)
+        {
+            Post post = new Post();
+            if (ModelState.IsValid)
+            {
+                post.UserID= User.Identity.GetUserId();
+                post.CategoryID = newPost.CategoryID;
+                post.Title = newPost.Title;
+                post.ShortDescription = newPost.ShortDescription;
+                post.Body = newPost.Body;
+                post.Published = newPost.Published;
+                post.PostedOn = newPost.PostedOn;
+
+                db.Posts.Add(post);
+                await db.SaveChangesAsync();
+                return RedirectToAction("MyPosts");
+            }
+
+            ViewBag.CategoryID = new SelectList(db.Categorys, "Id", "Name", post.CategoryID);
+            ViewBag.UserID = new SelectList(db.Users, "Id", "Email", post.UserID);
+            return View(post);
+        }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]

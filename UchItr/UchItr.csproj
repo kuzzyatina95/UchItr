@@ -227,6 +227,14 @@
     <Compile Include="Migrations\201602110942028_AddCommentCollection.Designer.cs">
       <DependentUpon>201602110942028_AddCommentCollection.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602111117125_EditPostViewModel.cs" />
+    <Compile Include="Migrations\201602111117125_EditPostViewModel.Designer.cs">
+      <DependentUpon>201602111117125_EditPostViewModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602111119071_EditPostViewModel1.cs" />
+    <Compile Include="Migrations\201602111119071_EditPostViewModel1.Designer.cs">
+      <DependentUpon>201602111119071_EditPostViewModel1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -666,6 +674,8 @@
     <Content Include="Views\Manage\AddDescription.cshtml" />
     <Content Include="Views\Home\CreatePost.cshtml" />
     <Content Include="Views\Manage\MyPosts.cshtml" />
+    <Content Include="Views\Manage\EditPost.cshtml" />
+    <Content Include="Views\Manage\CreatePost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -690,6 +700,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602110942028_AddCommentCollection.resx">
       <DependentUpon>201602110942028_AddCommentCollection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602111117125_EditPostViewModel.resx">
+      <DependentUpon>201602111117125_EditPostViewModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602111119071_EditPostViewModel1.resx">
+      <DependentUpon>201602111119071_EditPostViewModel1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
