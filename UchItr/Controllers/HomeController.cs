@@ -77,14 +77,11 @@ namespace UchItr.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Post post = await db.Posts.FindAsync(id);
-            post.User= await db.Users.FirstAsync(d => d.Id == post.UserID);
-            post.Category= await db.Categorys.FirstAsync(d => d.Id == post.CategoryID);
+            Post post = db.Posts.Include(p => p.Category).Include(p => p.User).FirstOrDefault(t => t.Id == id);
             if (post == null)
             {
                 return HttpNotFound();
             }
-            //ViewBag.CategoryID = new SelectList(db.Categorys, "Id", "Name", post.CategoryID);
             return View(post);
         }
 

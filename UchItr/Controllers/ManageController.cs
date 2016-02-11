@@ -127,7 +127,6 @@ namespace UchItr.Controllers
 
         public async Task<ActionResult> MyPosts()
         {
-            //var posts = db.Posts.Include(p => p.Category).Include(p => p.User);
             var currentUserID = User.Identity.GetUserId();
             var posts = from c in db.Posts.Include(p => p.Category).Include(p => p.User)
                          where c.UserID == currentUserID
@@ -163,6 +162,7 @@ namespace UchItr.Controllers
                 post.ShortDescription = postViewModel.ShortDescription;
                 post.Body = postViewModel.Body;
                 post.Published = postViewModel.Published;
+                post.Title = postViewModel.Title;
                 db.Entry(post).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("MyPosts");
