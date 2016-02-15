@@ -39,6 +39,12 @@ namespace UchItr.Controllers
         [HttpGet]
         public ActionResult CreatePost()
         {
+            string currentUserId = User.Identity.GetUserId();
+            ApplicationUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
+            if((currentUser.Name ==null)|| currentUser.Surname == null)
+            {
+                return RedirectToAction("AddDescription", "Manage");
+            }
             ViewBag.CategoryID = new SelectList(db.Categorys, "Id", "Name");
             ViewBag.UserID = User.Identity.GetUserId();
             return View();
@@ -77,7 +83,25 @@ namespace UchItr.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Post post = db.Posts.Include(p => p.Category).Include(p => p.User).FirstOrDefault(t => t.Id == id);
+            //var post1 = db.Posts.Include(p => p.Category).Include(p => p.User).Include(p => p.Comments);
+            //Post post = db.Posts.Include(p => p.Category).Include(p => p.User).Include(p => p.Comments).FirstOrDefault(p => p.Id == id);
+            //Post post = new Post();
+            //var post1 = db.Posts.Include(p => p.Category).Include(p => p.User).Include(p => p.Comments).Where(p => p.Id == id.Value);
+
+            //foreach (Post p  in db.Posts.Include(p => p.Category).Include(p => p.User).Include(p => p.Comments))
+            //{
+            //    if (p.Id == id)
+            //    {
+            //        post = p;
+            //        break;
+            //    }
+            //}
+            //Post post = db.Posts.Include(p => p.Category).Include(p => p.User).Include(p => p.Comments).Where(p => p.Id == id).Select(p=>p.Comments);
+            //var post1 = from c in db.Posts.Include(p => p.Category).Include(p => p.User).Include(p => p.Comments)
+            //            where c.Id == id
+            //            select c;
+            //Post post = (Post)post1;
+            Post post = db.Posts.Include(p => p.Category).Include(p => p.User).Include(p => p.Comments.Select(c => c.User)).FirstOrDefault(p => p.Id == id);
             if (post == null)
             {
                 return HttpNotFound();

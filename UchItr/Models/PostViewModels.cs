@@ -58,9 +58,11 @@ namespace UchItr.Models
 
 
         [Required]
+        [StringLength(100, ErrorMessage = "Значение {0} должно содержать символов не менее: {2}.", MinimumLength = 6)]
         [Display(Name = "Title")]
         public string Title { get; set; }
         [Required]
+        [StringLength(2000, ErrorMessage = "Значение {0} должно содержать символов не менее: {2}.", MinimumLength = 6)]
         [Display(Name = "ShortDescription")]
         public string ShortDescription { get; set; }
         [Required]
@@ -86,9 +88,11 @@ namespace UchItr.Models
         public int CategoryID { get; set; }
         public Category Category { get; set; }
 
+        [StringLength(100, ErrorMessage = "Значение {0} должно содержать символов не менее: {2}.", MinimumLength = 6)]
         [Display(Name = "Title")]
         public string Title { get; set; }
 
+        [StringLength(2000, ErrorMessage = "Значение {0} должно содержать символов не менее: {2}.", MinimumLength = 6)]
         [Display(Name = "ShortDescription")]
         public string ShortDescription { get; set; }
 

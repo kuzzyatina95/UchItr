@@ -4,33 +4,97 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<section id="main-slider" class="no-margin">
+    <div class="carousel slide">
+        <ol class="carousel-indicators">
+            <li data-target="#main-slider" data-slide-to="0" class="active"></li>
+            <li data-target="#main-slider" data-slide-to="1"></li>
+            <li data-target="#main-slider" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="item active" style="background-image: url( @Url.Content("~/Content/Images/slides/1.jpg"))">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="carousel-content centered">
+                                <h2 class="animation animated-item-1">Добро пожаловать!</h2>
+                                <br />
+                                <p class="animation animated-item-2">Sed mattis enim in nulla blandit tincidunt. Phasellus vel sem convallis, mattis est id, interdum augue. Integer luctus massa in arcu euismod venenatis. </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!--/.item-->
+            <div class="item" style="background-image: url( @Url.Content("~/Content/Images/slides/2.jpg"))">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="carousel-content center centered">
+                                <h2 class="animation animated-item-1">Powerful and Responsive HTML Template</h2>
+                                <p class="animation animated-item-2">Phasellus adipiscing felis a dictum dictum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at ligula risus. </p>
+                                <br>
+                                <a class="btn btn-md animation animated-item-3" href="#">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!--/.item-->
+            <div class="item" style="background-image: url( @Url.Content("~/Content/Images/slides/3.jpg"))">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="carousel-content centered">
+                                <h2 class="animation animated-item-1">Works Seamlessly Well on All Devices</h2>
+                                <p class="animation animated-item-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vitae euismod lacus. Maecenas in tempor lectus. Nam mattis, odio ut dapibus ornare, libero. </p>
+                                <br>
+                                <a class="btn btn-md animation animated-item-3" href="#">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!--/.item-->
+        </div><!--/.carousel-inner-->
+    </div><!--/.carousel-->
+    <a class="prev hidden-xs" href="#main-slider" data-slide="prev">
+        <i class="icon-angle-left"></i>
+    </a>
+    <a class="next hidden-xs" href="#main-slider" data-slide="next">
+        <i class="icon-angle-right"></i>
+    </a>
+</section><!--/#main-slider-->
 
-@foreach (var post in Model)
-{
-    <div class="row">
-        <div class="col-lg-8">
-            <h1>@Html.DisplayFor(modelItem => post.Title)</h1>
-            <p class="lead">
-                by <a href="#">@Html.DisplayFor(modelItem => post.User.Name) @Html.DisplayFor(modelItem => post.User.Surname)</a>
-            </p>
-           
-            <hr>
-            <p><span class="glyphicon glyphicon-time"></span> Posted on August @Html.DisplayFor(modelItem=>post.PostedOn)</p>
-            <hr>
 
-            <!-- Preview Image -->
-            <img class="img-responsive" src="http://placehold.it/900x300" alt="">
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <!-- Blog Post Excerpt -->
+            @foreach (var post in Model)
+            {
+                <div class="col-sm-8">
+                    <div class="blog-post blog-single-post">
+                        <div class="single-post-title">
+                            <h2>@Html.DisplayFor(modelItem => post.Title)</h2>
+                            <h3>@Html.DisplayFor(modelItem => post.User.Name) @Html.DisplayFor(modelItem => post.User.Surname)</h3>
+                        </div>
 
-            <hr>
-            <h4>@Html.DisplayFor(modelItem => post.ShortDescription)</h4>
-            @Html.Raw(post.Body)
-            @Html.ActionLink("Подробнее...", "DetailsPost", new { id = post.Id })
-            <hr />
-        </div>  
+                        <div class="single-post-image">
+                            <img src="@Url.Content("~/Content/Images/portfolio/1.jpg")" alt="Post Title">
+                        </div>
+
+                        <div class="single-post-info">
+                            <i class="glyphicon glyphicon-time"></i>@Html.DisplayFor(modelItem=>post.PostedOn)<a href="#" title="Show Comments"><i class="glyphicon glyphicon-comment" style="float: right !important;">11</i></a>
+                        </div>
+
+                        <div class="single-post-content">
+                            <p>
+                                @Html.DisplayFor(modelItem=>post.ShortDescription)
+                            </p>
+                            @Html.ActionLink("Подробнее...", "DetailsPost", new { id = post.Id })
+                        </div>
+                    </div>
+                </div>
+            }
+            <!-- End Blog Post Excerpt -->
+        </div>
     </div>
-}
+</div>

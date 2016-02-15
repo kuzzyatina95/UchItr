@@ -68,6 +68,10 @@ namespace UchItr.Controllers
 
             var userId = User.Identity.GetUserId();
             ApplicationUser user = await UserManager.FindByEmailAsync(User.Identity.Name);
+            var currentUserID = User.Identity.GetUserId();
+            var posts = from c in db.Posts.Include(p => p.Category).Include(p => p.User)
+                        where c.UserID == currentUserID
+                        select c;
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
@@ -142,7 +146,8 @@ namespace UchItr.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Post post = await db.Posts.FindAsync(id);
+            //Post post = await db.Posts.FindAsync(id);
+            Post post = db.Posts.Include(p => p.Category).Include(p => p.User).FirstOrDefault(t => t.Id == id);
             if (post == null)
             {
                 return HttpNotFound();
@@ -155,7 +160,8 @@ namespace UchItr.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> EditPost(EditPostViewModel postViewModel)
         {
-            Post post = db.Posts.Find(postViewModel.Id);
+            Post post = db.Posts.Include(p => p.Category).Include(p => p.User).FirstOrDefault(t => t.Id == postViewModel.Id);
+            //Post post = db.Posts.Find(postViewModel.Id);
             if (ModelState.IsValid)
             {
                 post.CategoryID = postViewModel.CategoryID;
@@ -167,6 +173,7 @@ namespace UchItr.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("MyPosts");
             }
+            ViewBag.CategoryID = new SelectList(db.Categorys, "Id", "Name", post.CategoryID);
             return View(post);
         }
 

@@ -5,75 +5,104 @@
 
 <h2>@ViewBag.Title.</h2>
 
+<hr /><hr />
+
 <p class="text-success">@ViewBag.StatusMessage</p>
-<div class="row">
-    <div class="col-md-4">
-        
-        <h4>Изменение параметров учетной записи</h4>
-        <hr />
 
-    </div>
-    <div class="col-md-4">
-        <h4>О себе</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>Фамилия:</dt>
-            <dd>
-                @Model.Surname
-            </dd>
-            <dt>Имя:</dt>
-            <dd>
-                @Model.Name
-            </dd>
-            <dt>О себе:</dt>
-            <dd>
-                @Model.ShortDescription
-            </dd>
-            <dt>Хобби:</dt>
-            <dd>
-                @Model.Hobby
-            </dd>
-            <dt>Данные:</dt>
-            <dd>
-                @Html.ActionLink("Редактировать", "AddDescription")
-            </dd>
-            <dd>
-                @Html.ActionLink("Мои посты", "MyPosts")
-            </dd>
-        </dl>
-    </div>
-    <div class="col-md-4">
-        <h4>Изменение параметров учетной записи</h4>
-        <hr />
-        <dl class="dl-horizontal">
 
-            <dt>Пароль:</dt>
-            <dd>
-                [
-                @if (Model.HasPassword)
+    <div class="container">
+        <div class="row">
+            <!-- Product Image & Available Colors -->
+            <div class="col-sm-6">
+                <div class="product-image-large">
+                    <img src="@Url.Content("~/Content/Images/portfolio/1.jpg")" alt="Item Name">
+                </div>
+                <div class="colors">
+                    <span class="color-white"></span>
+                    <span class="color-black"></span>
+                    <span class="color-blue"></span>
+                    <span class="color-orange"></span>
+                    <span class="color-green"></span>
+                </div>
+            </div>
+            <!-- End Product Image & Available Colors -->
+            <!-- Product Summary & Options -->
+            <div class="col-sm-6 product-details">
+                <h2>@Model.Surname @Model.Name</h2>
+                <h3>@Html.ActionLink("Мои посты", "MyPosts") </h3>
+                <p><strong>Интересы: </strong>@Model.Hobby</p>
+                <p><strong>Date: </strong>August 21, 2015</p>
+                <p><strong>Tags: </strong>Photography, Art, Graphics</p>
+            </div>
+            <!-- End Product Summary & Options -->
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <h4>О себе</h4>
+                <hr />
+                <h3>@Model.ShortDescription</h3>
+                <dl class="dl-horizontal">
+                    <dt>Фамилия:</dt>
+                    <dd>
+                        @Model.Surname
+                    </dd>
+                    <dt>Имя:</dt>
+                    <dd>
+                        @Model.Name
+                    </dd>
+                    <dt>О себе:</dt>
+                    <dd>
+                        @Model.ShortDescription
+                    </dd>
+                    <dt>Хобби:</dt>
+                    <dd>
+                        @Model.Hobby
+                    </dd>
+                    <dt>Данные:</dt>
+                    <dd>
+                        @Html.ActionLink("Редактировать", "AddDescription")
+                    </dd>
+                    <dd>
+                        @Html.ActionLink("Мои посты", "MyPosts")
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <h4>Изменение параметров учетной записи</h4>
+                <hr />
+                <dl class="dl-horizontal">
+
+                    <dt>Пароль:</dt>
+                    <dd>
+                        [
+                        @if (Model.HasPassword)
             {
-                    @Html.ActionLink("Смена пароля", "ChangePassword")
-                }
-                else
-                {
-                    @Html.ActionLink("Создать", "SetPassword")
-                }
-                ]
-            </dd>
-            <dt>Внешние имена входа:</dt>
-            <dd>
-                @Model.Logins.Count [
-                @Html.ActionLink("Управление", "ManageLogins") ]
-            </dd>
-            @*
+                            @Html.ActionLink("Смена пароля", "ChangePassword")
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Создать", "SetPassword")
+                        }
+                        ]
+                    </dd>
+                    <dt>Внешние имена входа:</dt>
+                    <dd>
+                        @Model.Logins.Count [
+                        @Html.ActionLink("Управление", "ManageLogins") ]
+                    </dd>
+                    @*
                 Номера телефонов можно использовать в качестве второго проверочного фактора для системы двухфакторной проверки подлинности.
 
                  В <a href="http://go.microsoft.com/fwlink/?LinkId=403804">этой статье</a>
                     вы можете узнать, как настроить для этого приложения ASP.NET двухфакторную проверку подлинности с использованием SMS.
 
                  Настроив двухфакторную проверку подлинности, раскомментируйте следующий блок.
-            *@
-            @*
+                    *@
+                    @*
                 <dt>Номер телефона:</dt>
                 <dd>
                     @(Model.PhoneNumber ?? "Нет") [
@@ -89,14 +118,14 @@
                     }
                     ]
                 </dd>
-            *@
-            <dt>Двухфакторная проверка подлинности:</dt>
-            <dd>
-                <p>
-                    Поставщики двухфакторной проверки подлинности не настроены. В <a href="http://go.microsoft.com/fwlink/?LinkId=403804">этой статье</a>
-                    вы можете узнать, как настроить двухфакторную проверку подлинности в этом приложении ASP.NET.
-                </p>
-                @*@if (Model.TwoFactor)
+                    *@
+                    <dt>Двухфакторная проверка подлинности:</dt>
+                    <dd>
+                        <p>
+                            Поставщики двухфакторной проверки подлинности не настроены. В <a href="http://go.microsoft.com/fwlink/?LinkId=403804">этой статье</a>
+                            вы можете узнать, как настроить двухфакторную проверку подлинности в этом приложении ASP.NET.
+                        </p>
+                        @*@if (Model.TwoFactor)
                     {
                         using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                         {
@@ -116,8 +145,15 @@
                             </text>
                         }
                     }*@
-            </dd>
-        </dl>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+
     </div>
-</div>
+
+
+
+
+
 
