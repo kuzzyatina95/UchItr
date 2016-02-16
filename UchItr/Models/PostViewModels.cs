@@ -133,5 +133,18 @@ namespace UchItr.Models
         public bool Deleted { get; set; }
     }
 
+    public class AddCommentViewModel
+    {
+        public int PostId { get; set; }
+        public Post post { get; set; }
+
+        public DateTime DateTime { get; set; }
+
+        public string UserID { get; set; }
+        public ApplicationUser User { get; set; }
+        [Required]
+        public string Body { get; set; }
+    }
+
 
 }

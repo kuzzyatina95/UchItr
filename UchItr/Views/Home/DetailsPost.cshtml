@@ -11,85 +11,72 @@
     <div class="container">
         <div class="row">
             <!-- Blog Post Excerpt -->
-                <div class="col-sm-9">
-                    <div class="blog-post blog-single-post">
-                        <div class="single-post-title">
-                            <h2>@Html.DisplayFor(modelItem => modelItem.Title)</h2>
-                            <h3>@Html.DisplayFor(modelItem => modelItem.User.Name) @Html.DisplayFor(modelItem => modelItem.User.Surname)</h3>
-                        </div>
+            <div class="col-sm-9">
+                <div class="blog-post blog-single-post">
+                    <div class="single-post-title">
+                        <h2>@Html.DisplayFor(modelItem => modelItem.Title)</h2>
+                        <h3>@Html.DisplayFor(modelItem => modelItem.User.Name) @Html.DisplayFor(modelItem => modelItem.User.Surname)</h3>
+                    </div>
 
-                        <div class="single-post-image">
-                            <img src="@Url.Content("~/Content/Images/portfolio/1.jpg")" alt="Post Title">
-                        </div>
+                    <div class="single-post-image">
+                        <img src="@Url.Content("~/Content/Images/portfolio/1.jpg")" alt="Post Title">
+                    </div>
 
-                        <div class="single-post-info">
-                            <i class="glyphicon glyphicon-time"></i>@Html.DisplayFor(modelItem => modelItem.PostedOn)<a href="#" title="Show Comments"><i class="glyphicon glyphicon-comment" style="float: right !important;">11</i></a>
-                        </div>
+                    <div class="single-post-info">
+                        <i class="glyphicon glyphicon-time"></i>@Html.DisplayFor(modelItem => modelItem.PostedOn)<a href="#" title="Show Comments"><i class="glyphicon glyphicon-comment" style="float: right !important;">11</i></a>
+                    </div>
 
-                        <div class="single-post-content">
-                            <p>
-                               @Html.Raw(Model.Body)
-                            </p>
-                            @*@Html.ActionLink("Подробнее...", "DetailsPost", new { id = post.Id })*@
-                        </div>
+                    <div class="single-post-content">
+                        <p>
+                            @Html.Raw(Model.Body)
+                        </p>
+                        @*@Html.ActionLink("Подробнее...", "DetailsPost", new { id = post.Id })*@
                     </div>
                 </div>
+                <p>
+                    @Html.ActionLink("Back to List", "Index")
+                </p>
+                <hr>
+            </div>
             <!-- End Blog Post Excerpt -->
         </div>
-        <p>
-            @Html.ActionLink("Back to List", "Index")
-        </p>
-        <hr>
-       <div class="row">
-           <div class="col-sm-9">
-               <!-- Blog Comments -->
-               <!-- Comments Form -->
-               <div class="well">
-                   <h4>Leave a Comment:</h4>
-                   <form role="form">
-                       <div class="form-group">
-                           <textarea class="form-control" rows="3"></textarea>
-                       </div>
-                       <button type="submit" class="btn btn-primary">Submit</button>
-                   </form>
-               </div>
-           </div>
-       </div>
 
 
-            <hr>
+
 
         <!-- Posted Comments -->
         <!-- Comment -->
 
-        @foreach (var comment in Model.Comments)
+
+
+        <div id="comments">
+            @Html.Partial("Comments", Model)
+        </div>
+        @if (Request.IsAuthenticated)
         {
-            <div class="row">
-                <div class="col-sm-9">
-                    <div class="media">
-                        <a class="pull-left" href="#">
-                            <img class="media-object" src="http://placehold.it/64x64" alt="">
-                        </a>
-                        <div class="media-body">
-                            <h4 class="media-heading">
-                                @Html.DisplayFor(modelItem => comment.User.Name) @Html.DisplayFor(modelItem => comment.User.Surname)
-                                @Html.DisplayFor(modelItem => comment.UserID)
-                                @*@comment.User.Name @comment.User.Surname @comment.UserID*@
-                                <small>@Html.DisplayFor(modelItem => comment.DateTime)</small>
-                            </h4>
-                            @Html.DisplayFor(modelItem => comment.Body)
+            using (Ajax.BeginForm("Comments", new AjaxOptions { UpdateTargetId = "comments" }))
+            {
+                <div class="row">
+                    <div class="col-sm-9">
+                        <!-- Blog Comments -->
+                        <!-- Comments Form -->
+                        <div class="well">
+                            <h4>Leave a Comment:</h4>
+                            <form role="form">
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group">
+                                    <input value="@Model.Id" id="postid" name="postid" hidden />
+                                    <input value="@Model.UserID" id="userid" name="userid" hidden />
+                                    <textarea class="form-control" rows="3" id="bodyComment" name="bodyComment"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Добавить</button>
+                            </form>
                         </div>
                     </div>
                 </div>
-               
-            </div>
-            <hr>
+            }
         }
-
-        
-        </div>
+    </div>
 </div>
-
-
-
 

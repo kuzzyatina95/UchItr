@@ -83,30 +83,41 @@ namespace UchItr.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            //var post1 = db.Posts.Include(p => p.Category).Include(p => p.User).Include(p => p.Comments);
-            //Post post = db.Posts.Include(p => p.Category).Include(p => p.User).Include(p => p.Comments).FirstOrDefault(p => p.Id == id);
-            //Post post = new Post();
-            //var post1 = db.Posts.Include(p => p.Category).Include(p => p.User).Include(p => p.Comments).Where(p => p.Id == id.Value);
-
-            //foreach (Post p  in db.Posts.Include(p => p.Category).Include(p => p.User).Include(p => p.Comments))
-            //{
-            //    if (p.Id == id)
-            //    {
-            //        post = p;
-            //        break;
-            //    }
-            //}
-            //Post post = db.Posts.Include(p => p.Category).Include(p => p.User).Include(p => p.Comments).Where(p => p.Id == id).Select(p=>p.Comments);
-            //var post1 = from c in db.Posts.Include(p => p.Category).Include(p => p.User).Include(p => p.Comments)
-            //            where c.Id == id
-            //            select c;
-            //Post post = (Post)post1;
             Post post = db.Posts.Include(p => p.Category).Include(p => p.User).Include(p => p.Comments.Select(c => c.User)).FirstOrDefault(p => p.Id == id);
             if (post == null)
             {
                 return HttpNotFound();
             }
             return View(post);
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult Comments(int postid, string userid, string bodyComment)
+        {
+            Comment comment = new Comment();
+            Post post = db.Posts.Include(p => p.Category).Include(p => p.User).Include(p => p.Comments.Select(c => c.User)).FirstOrDefault(p => p.Id == postid);
+            if (ModelState.IsValid)
+            {
+                if (bodyComment == "")
+                {
+                    return PartialView("Comments", post);
+                }
+                comment.UserID = User.Identity.GetUserId();
+                comment.PostId = postid;
+                comment.Body = bodyComment;
+                comment.DateTime = DateTime.Now;
+
+                db.Comments.Add(comment);
+                db.SaveChanges();
+                return PartialView("Comments",post);
+            }
+            //if (post.Comments.Count <= 0)
+            //{
+            //    return HttpNotFound();
+            //}
+
+            return PartialView();
         }
 
     }
