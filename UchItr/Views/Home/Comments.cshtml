@@ -1,27 +1,41 @@
 ﻿@model UchItr.Models.Post
+@using Microsoft.AspNet.Identity
 
 
-    @foreach (var comment in Model.Comments)
-    {
-        <div class="row">
-            <div class="col-sm-9">
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="http://placehold.it/64x64" alt="">
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">
-                            @Html.DisplayFor(modelItem => comment.User.Name) @Html.DisplayFor(modelItem => comment.User.Surname)
-                            @*@Html.DisplayFor(modelItem => comment.UserID)*@   
-                            @*@comment.User.Name @comment.User.Surname @comment.UserID*@
-                            <small>@Html.DisplayFor(modelItem => comment.DateTime)</small>
-                        </h4>
-                        @Html.DisplayFor(modelItem => comment.Body)
-                    </div>
+@foreach (var comment in Model.Comments)
+{
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="media">
+                <a class="pull-left" href="#">
+                    <img class="media-object" src="http://placehold.it/64x64" alt="">
+                </a>
+                <div class="media-body">
+                    <h4 class="media-heading">
+                        @Html.DisplayFor(modelItem => comment.User.Name) @Html.DisplayFor(modelItem => comment.User.Surname)
+                        <small>@Html.DisplayFor(modelItem => comment.DateTime)</small>
+                    </h4>
+                    @Html.DisplayFor(modelItem => comment.Body, new { @id = "body_comment" })
+                    @if (Request.IsAuthenticated)
+                    {
+                        if (comment.UserID == User.Identity.GetUserId())
+                        {
+                            using (Ajax.BeginForm("DeleteComments","Home", new { Id=Model.Id, comment_Id=comment.Id, comment_UserID=comment.UserID }, new AjaxOptions
+                            {
+                                UpdateTargetId = "comments",
+                            }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-primary">Удалить</button>
+                            }
+                        }
+
+                    }
                 </div>
-                <hr>
             </div>
-
+            <hr>
         </div>
 
-    }
+    </div>
+
+}

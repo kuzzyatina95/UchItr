@@ -17,7 +17,7 @@ namespace UchItr.Controllers
 
         public async Task<ActionResult> Index()
         {
-            var posts = db.Posts.Include(p => p.Category).Include(p => p.User);
+            var posts = db.Posts.Include(p => p.Category).Include(p => p.User).Include(p=>p.Comments);
             return View(await posts.ToListAsync());
         }
 
@@ -99,7 +99,7 @@ namespace UchItr.Controllers
             Post post = db.Posts.Include(p => p.Category).Include(p => p.User).Include(p => p.Comments.Select(c => c.User)).FirstOrDefault(p => p.Id == postid);
             if (ModelState.IsValid)
             {
-                if (bodyComment == "")
+                if (bodyComment.Trim() == "")
                 {
                     return PartialView("Comments", post);
                 }
@@ -111,6 +111,31 @@ namespace UchItr.Controllers
                 db.Comments.Add(comment);
                 db.SaveChanges();
                 return PartialView("Comments",post);
+            }
+            //if (post.Comments.Count <= 0)
+            //{
+            //    return HttpNotFound();
+            //}
+
+            return PartialView();
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult DeleteComments(int Id, int comment_Id, string comment_UserID)
+        {
+            Post post = db.Posts.Include(p => p.Category).Include(p => p.User).Include(p => p.Comments.Select(c => c.User)).FirstOrDefault(p => p.Id == Id);
+            if (ModelState.IsValid)
+            {
+                if (comment_UserID != User.Identity.GetUserId())
+                {
+                    return PartialView("Comments", post);
+                }
+                Comment comment = db.Comments.Find(comment_Id);
+                db.Comments.Remove(comment);
+                db.SaveChanges();
+                post = db.Posts.Include(p => p.Category).Include(p => p.User).Include(p => p.Comments.Select(c => c.User)).FirstOrDefault(p => p.Id == Id);
+                return PartialView("Comments", post);
             }
             //if (post.Comments.Count <= 0)
             //{

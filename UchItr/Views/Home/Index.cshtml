@@ -78,16 +78,23 @@
                         </div>
 
                         <div class="single-post-image">
-                            <img src="@Url.Content("~/Content/Images/portfolio/1.jpg")" alt="Post Title">
+                            <a href="@Url.Action("DetailsPost","Home", new {id=post.Id})">
+                                <img src="@Url.Content("~/Content/Images/portfolio/1.jpg")" alt="Post Title">
+                            </a>
+                            
                         </div>
 
                         <div class="single-post-info">
-                            <i class="glyphicon glyphicon-time"></i>@Html.DisplayFor(modelItem=>post.PostedOn)<a href="#" title="Show Comments"><i class="glyphicon glyphicon-comment" style="float: right !important;">11</i></a>
+                            <i class="glyphicon glyphicon-time">
+                            </i>@Html.DisplayFor(modelItem => post.PostedOn)
+                            <a href="@Url.Action("DetailsPost","Home", new {id=post.Id})" title="Show Comments">
+                                <i class="glyphicon glyphicon-comment" style="float: right !important;">@Html.DisplayFor(modelItem => post.Comments.Count)</i>
+                            </a>
                         </div>
 
                         <div class="single-post-content">
                             <p>
-                                @Html.DisplayFor(modelItem=>post.ShortDescription)
+                                @Html.DisplayFor(modelItem => post.ShortDescription)
                             </p>
                             @Html.ActionLink("Подробнее...", "DetailsPost", new { id = post.Id })
                         </div>

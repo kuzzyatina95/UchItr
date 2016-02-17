@@ -14,6 +14,7 @@
             <div class="col-sm-9">
                 <div class="blog-post blog-single-post">
                     <div class="single-post-title">
+                        @Html.HiddenFor(modelItem => modelItem.Id)
                         <h2>@Html.DisplayFor(modelItem => modelItem.Title)</h2>
                         <h3>@Html.DisplayFor(modelItem => modelItem.User.Name) @Html.DisplayFor(modelItem => modelItem.User.Surname)</h3>
                     </div>
@@ -79,4 +80,5 @@
         }
     </div>
 </div>
+
 

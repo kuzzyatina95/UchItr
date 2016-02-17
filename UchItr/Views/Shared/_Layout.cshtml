@@ -8,6 +8,8 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/ckeditor")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.js")
     <script src="//use.edgefonts.net/bebas-neue.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600,800' rel='stylesheet' type='text/css'>
     <!-- Custom Fonts & Icons -->
@@ -23,7 +25,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @*<a class="navbar-brand" href="index.html"><img src="img/logo.png" alt="Basica"></a>*@
+                <a class="navbar-brand" href="@Url.Action("Index","Home")">My blog</a>
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
@@ -77,9 +79,9 @@
         <p>&copy; @DateTime.Now.Year – приложение ASP.NET</p>
     </footer>*@
 
-    @Scripts.Render("~/bundles/jquery")
+
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.js")
+
     @RenderSection("scripts", required: false)
 </body>
 </html>
