@@ -31,7 +31,23 @@
                                 @Html.ValidationMessageFor(model => model.UserID, "", new { @class = "text-danger" })
                             </div>
                         </div>*@
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <h2>Main image</h2>
+                            <div class="single-post-image">
+                                <img id="mainImage" src="" alt="main Image" class="img-responsive" />
+                            </div>
+                        </div>
+                    </div>
 
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Image.LinkImg, "Link img", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Image.LinkImg, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Image.LinkImg, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.CategoryID, "CategoryID", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
@@ -115,7 +131,45 @@
         </div>
 
     </div>
+
+    <div class="row">
+        <div class="col-sm-10" id="dropZone">
+            <p>drag&drop</p>
+            <form action="~/Home/SaveUploadedFile" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm" background: none; border: none;">
+                <div class="fallback">
+                    <input name="file" type="file" multiple />
+                    <input type="submit" value="Upload" />
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
+<style>
+    #dropZone {
+        background: #aec62c;
+        border: white dashed 3px;
+
+        padding: 50px;
+        text-align: center;
+        color: white;
+    }
+</style>
+<script>
+    //File Upload response from the server
+    Dropzone.options.dropzoneForm = {
+        init: function () {
+            this.on("complete", function (data) {
+                //var res = eval('(' + data.xhr.responseText + ')');
+                var res = JSON.parse(data.xhr.responseText);
+                var html2Add = "<input type='text' name='lol' value='"+res.name+"'/>";
+                $('#dropzoneForm').append(html2Add);
+                $("#mainImage").attr("src", res.name);
+                $("#Image_LinkImg").attr("value", res.name);
+            });
+        },
+        maxFiles: 1
+    };
+</script>
 
 
 

@@ -16,6 +16,7 @@ namespace UchItr
                       "~/Scripts/jquery.easing.min.js",
                       "~/Scripts/scrolling-nav.js"));
 
+
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
@@ -24,7 +25,9 @@ namespace UchItr
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-           
+            bundles.Add(new ScriptBundle("~/bundles/dropzonescripts").Include(
+                "~/Scripts/dropzone/dropzone.js"));
+
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
@@ -40,7 +43,11 @@ namespace UchItr
                       "~/Content/icomoon-social.css",
                       "~/Content/main.css",
                       "~/Content/icomoon-social.css"));
-            
+
+            bundles.Add(new StyleBundle("~/Content/dropzonescss").Include(
+                      "~/Scripts/dropzone/basic.css",
+                      "~/Scripts/dropzone/dropzone.css"));
+
 
         }
     }

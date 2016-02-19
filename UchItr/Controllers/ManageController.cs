@@ -147,7 +147,7 @@ namespace UchItr.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             //Post post = await db.Posts.FindAsync(id);
-            Post post = db.Posts.Include(p => p.Category).Include(p => p.User).FirstOrDefault(t => t.Id == id);
+            Post post = db.Posts.Include(p => p.Category).Include(p=>p.Image).Include(p => p.User).FirstOrDefault(t => t.Id == id);
             if (post == null)
             {
                 return HttpNotFound();
@@ -160,7 +160,7 @@ namespace UchItr.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> EditPost(EditPostViewModel postViewModel)
         {
-            Post post = db.Posts.Include(p => p.Category).Include(p => p.User).FirstOrDefault(t => t.Id == postViewModel.Id);
+            Post post = db.Posts.Include(p => p.Category).Include(p => p.User).Include(p => p.Image).FirstOrDefault(t => t.Id == postViewModel.Id);
             //Post post = db.Posts.Find(postViewModel.Id);
             if (ModelState.IsValid)
             {
@@ -169,6 +169,7 @@ namespace UchItr.Controllers
                 post.Body = postViewModel.Body;
                 post.Published = postViewModel.Published;
                 post.Title = postViewModel.Title;
+                post.Image = postViewModel.Image;
                 db.Entry(post).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("MyPosts");

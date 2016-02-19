@@ -42,6 +42,7 @@ namespace UchItr.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime PostedOn { get; set; }
         public ICollection<Comment> Comments { get; set; }
+        public Image Image { get; set; }
     }
 
     public class AddPostViewModel
@@ -77,7 +78,7 @@ namespace UchItr.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime PostedOn { get; set; }
-
+        public Image Image { get; set; }
     }
 
     public class EditPostViewModel
@@ -101,6 +102,7 @@ namespace UchItr.Models
         public string Body { get; set; }
         [Display(Name = "Опубликовать?")]
         public bool Published { get; set; }
+        public Image Image { get; set; }
     }
 
 
@@ -146,5 +148,21 @@ namespace UchItr.Models
         public string Body { get; set; }
     }
 
+    public class Image
+    {
+        public int Id { get; set; }
+        public string LinkImg { get; set; }
+    }
+
+
+    //public class ImageInPost
+    //{
+    //    public int IdImgPost { get; set; }
+    //    public int PostId { get; set; }
+    //    public Post post { get; set; }
+    //    public int IdImg { get; set; }
+    //    public ICollection<Image> Images { get; set; }
+
+    //} 
 
 }

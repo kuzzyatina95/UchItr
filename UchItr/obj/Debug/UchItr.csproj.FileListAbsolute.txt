@@ -115,3 +115,6 @@ C:\Users\kuzzy\OneDrive\Документы\Visual Studio 2015\Projects\UchItr\Uc
 C:\Users\kuzzy\OneDrive\Документы\Visual Studio 2015\Projects\UchItr\UchItr\bin\ru\Microsoft.Owin.Security.Google.resources.dll
 C:\Users\kuzzy\OneDrive\Документы\Visual Studio 2015\Projects\UchItr\UchItr\bin\ru\Microsoft.Owin.Security.Twitter.resources.dll
 C:\Users\kuzzy\OneDrive\Документы\Visual Studio 2015\Projects\UchItr\UchItr\bin\ru\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
+C:\Users\kuzzy\OneDrive\Документы\Visual Studio 2015\Projects\UchItr\UchItr\bin\CloudinaryDotNet.dll
+C:\Users\kuzzy\OneDrive\Документы\Visual Studio 2015\Projects\UchItr\UchItr\obj\Debug\UchItr.Migrations.AddImage.resources
+C:\Users\kuzzy\OneDrive\Документы\Visual Studio 2015\Projects\UchItr\UchItr\obj\Debug\UchItr.Migrations.AddImage1.resources

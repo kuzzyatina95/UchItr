@@ -8,6 +8,9 @@ using System.Net;
 using System.Data.Entity;
 using System.Web.Mvc;
 using UchItr.Models;
+using System.IO;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 
 namespace UchItr.Controllers
 {
@@ -17,7 +20,7 @@ namespace UchItr.Controllers
 
         public async Task<ActionResult> Index()
         {
-            var posts = db.Posts.Include(p => p.Category).Include(p => p.User).Include(p=>p.Comments);
+            var posts = db.Posts.Include(p => p.Category).Include(p => p.User).Include(p => p.Comments).Include(p=>p.Image);
             return View(await posts.ToListAsync());
         }
 
@@ -65,7 +68,7 @@ namespace UchItr.Controllers
                 post.Body = newPost.Body;
                 post.Published = newPost.Published;
                 post.PostedOn = newPost.PostedOn;
-
+                post.Image = newPost.Image;
                 db.Posts.Add(post);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -83,11 +86,12 @@ namespace UchItr.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Post post = db.Posts.Include(p => p.Category).Include(p => p.User).Include(p => p.Comments.Select(c => c.User)).FirstOrDefault(p => p.Id == id);
+            Post post = db.Posts.Include(p => p.Category).Include(p => p.User).Include(p => p.Comments.Select(c => c.User)).Include(p => p.Image).FirstOrDefault(p => p.Id == id);
             if (post == null)
             {
                 return HttpNotFound();
             }
+            //ViewBag.Link = post.Image.LinkImg;
             return View(post);
         }
 
@@ -137,12 +141,71 @@ namespace UchItr.Controllers
                 post = db.Posts.Include(p => p.Category).Include(p => p.User).Include(p => p.Comments.Select(c => c.User)).FirstOrDefault(p => p.Id == Id);
                 return PartialView("Comments", post);
             }
-            //if (post.Comments.Count <= 0)
-            //{
-            //    return HttpNotFound();
-            //}
 
             return PartialView();
+        }
+
+        public ActionResult SaveUploadedFile()
+        {
+            bool isSavedSuccessfully = true;
+            string fName = "";
+            string str = "";
+            try
+            {
+                foreach (string fileName in Request.Files)
+                {
+                    HttpPostedFileBase file = Request.Files[fileName];
+                    //Save file content goes here
+                    fName = file.FileName;
+                    
+                    if (file != null && file.ContentLength > 0)
+                    {
+
+                        var originalDirectory = new DirectoryInfo(string.Format("{0}Images\\WallImages", Server.MapPath(@"\")));
+
+                        string pathString = System.IO.Path.Combine(originalDirectory.ToString(), "imagepath");
+
+                        var fileName1 = Path.GetFileName(file.FileName);
+
+                        bool isExists = System.IO.Directory.Exists(pathString);
+
+                        if (!isExists)
+                            System.IO.Directory.CreateDirectory(pathString);
+
+                        var path = string.Format("{0}\\{1}", pathString, file.FileName);
+                        file.SaveAs(path);
+                        Account account = new Account(
+                            "kuzzya",
+                            "649899148786625",
+                            "Em9LZocDSzlf5Jf9ikhTRKwvuhY");
+
+                        Cloudinary cloudinary = new Cloudinary(account);
+                        var uploadParams = new ImageUploadParams()
+                        {
+                            File = new FileDescription(path)
+                        };
+                        var uploadResult = cloudinary.Upload(uploadParams);
+                        str = uploadResult.Uri.AbsoluteUri;
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                isSavedSuccessfully = false;
+            }
+
+
+            if (isSavedSuccessfully)
+            {
+                //return Json(new { Message = fName });
+                return Json(new { Message = "Successful", name = str });
+            }
+            else
+            {
+                return Json(new { Message = "Error in saving file" });
+            }
         }
 
     }

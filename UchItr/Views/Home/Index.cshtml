@@ -79,7 +79,10 @@
 
                         <div class="single-post-image">
                             <a href="@Url.Action("DetailsPost","Home", new {id=post.Id})">
-                                <img src="@Url.Content("~/Content/Images/portfolio/1.jpg")" alt="Post Title">
+                                @*<img src="@Url.Content(post.Image.LinkImg)" alt="Post Title">*@
+                                @*<img src="@Url.Content(modelItem => post.Image.LinkImg)" alt="Post Title">*@
+                                <img src="@Html.DisplayFor(modelItem => post.Image.LinkImg)" alt="Post Title">
+                                
                             </a>
                             
                         </div>

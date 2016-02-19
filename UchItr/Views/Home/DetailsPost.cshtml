@@ -16,11 +16,22 @@
                     <div class="single-post-title">
                         @Html.HiddenFor(modelItem => modelItem.Id)
                         <h2>@Html.DisplayFor(modelItem => modelItem.Title)</h2>
-                        <h3>@Html.DisplayFor(modelItem => modelItem.User.Name) @Html.DisplayFor(modelItem => modelItem.User.Surname)</h3>
+                        <h3>@Html.DisplayFor(model => model.User.Name) @Html.DisplayFor(model => model.User.Surname)</h3>
                     </div>
 
                     <div class="single-post-image">
-                        <img src="@Url.Content("~/Content/Images/portfolio/1.jpg")" alt="Post Title">
+                        @{
+                            if (Model.Image == null)
+                            {
+                                <img src="@*@Url.Content()*@" alt="Post Title" class="img-responsive">
+                            }
+                            else
+                            {
+                                <img src="@Url.Content(Model.Image.LinkImg)" alt="Post Title" class="img-responsive">
+                            }
+                        }
+
+
                     </div>
 
                     <div class="single-post-info">
@@ -82,3 +93,9 @@
 </div>
 
 
+<script>
+    $("#send").click(function () {
+        $("#bodyComment").val();
+    });
+
+</script>
